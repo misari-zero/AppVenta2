@@ -1,30 +1,26 @@
 from config.wsgi import *
-from core.erp.models import Type, Employed
+from core.erp.models import *
+import random
 
-#LISTAR
+data = ['Leche y derivados', 'Carnes, pescados y huevos', 'Patatas, legumbres, frutos secos',
+        'Verduras y Hortalizas', 'Frutas', 'Cereales y derivados, azúcar y dulces',
+        'Grasas, aceite y mantequilla']
 
-# select * from Tabla
-# query = Type.objects.all()
-# print(query)
+#DELETE FROM puclic.erp_category;
+#ALTER SEQUENCE erp_category_id_seq RESTART WITH 1;
+#
+# letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+#            'u', 'v', 'w', 'x', 'y', 'z']
 
-# insercion
-# t = Type(id='5',name='Alksjdkjs23')
-# t.id = 5
-# t.name = 'Purekjas'
-# t.save()
-
-# edicion
-#     t = Type.objects.get(pk=1)
-#     t.name = 'Presidente'
-#     t.save()
-
-# eliminacion
-# t = Type.objects.get(pk=1)
-# t.delete()
+# for i in range(1, 6000):
+#     name = ''.join(random.choices(letters, k=5))
+#     while Category.objects.filter(name=name).exists():
+#         name = ''.join(random.choices(letters, k=5))
+#     Category(name=name).save()
+#     print('Guardado registro {}'.format(i))
 
 
-obj = Employed.objects,filter(type_id=1, )
-
-#obj = Type.objects.filter(name__icontains='presidente').query
-for i in Type.objects.filter(name__endswith ='e'):
-    print(i.name)
+for i in data:
+    cat = Category(name=i)
+    cat.save()
+    print('Guardado registro N°{}'.format(cat.id))

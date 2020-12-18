@@ -17,7 +17,6 @@ import config.db as db
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -27,8 +26,7 @@ SECRET_KEY = 'z&pf(@j*fr2w-@3#@y0w5qn!fptc6*=8a+-#3g84o9(3!_ju-0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -39,8 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #My Apps
-    'core.erp'
+    # Libs
+    'widget_tweaks',
+    # My Apps
+    'core.erp',
+    'core.homepage',
+    'core.login',
+    'core.user',
+    'core.reports',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'crum.CurrentRequestUserMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -58,7 +63,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,7 +77,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -97,11 +101,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-pe'
 
 TIME_ZONE = 'UTC'
 
@@ -111,8 +114,43 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT  = os.path.join(BASE_DIR, 'staticfiles/')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+LOGIN_REDIRECT_URL = '/erp/dashboard/'
+
+LOGOUT_REDIRECT_URL = '/login/'
+
+LOGIN_URL = '/login/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+MEDIA_URL = '/media/'
+
+AUTH_USER_MODEL = 'user.User'
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+# Email
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT = '587'
+
+EMAIL_HOST_USER = 'elliotisarim95@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'Megaman3008'
+
+DOMAIN = ''
